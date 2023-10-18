@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Online Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        #game-container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        canvas {
+            border: 2px solid #000;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+        #score {
+            font-size: 24px;
+        }
+        @media (max-width: 768px) {
+            canvas {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Simple Online Game</h1>
+        <div id="game-container" class="mt-4">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+        </div>
+        <p id="score" class="mt-3">Score: 0</p>
+        <button id="startButton" class="btn btn-primary">Start Game</button>
+        <button id="stopButton" class="btn btn-danger">Stop Game</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("score");
+        const startButton = document.getElementById("startButton");
+        const stopButton = document.getElementById("stopButton");
+
+        let score = 0;
+        let gameInterval;
+
+        startButton.addEventListener("click", startGame);
+        stopButton.addEventListener("click", stopGame);
+
+        function startGame() {
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            startButton.textContent = "Game in Progress";
+            gameInterval = setInterval(updateGameArea, 20);
+        }
+
+        function stopGame() {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            startButton.textContent = "Start Game";
+            clearInterval(gameInterval);
+        }
+
+        function updateGameArea() {
+        
+            score++;
+            scoreElement.textContent = "Score: " + score;
+        }
+
+    </script>
+</body>
+</html>
